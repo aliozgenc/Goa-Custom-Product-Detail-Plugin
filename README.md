@@ -8,9 +8,9 @@ Adds custom text and image to your WooCommerce product detail page.
 
 <b>In the future I'm planning to make these changes:</b>
 
-More admin page abilities for a better control for your needs.
-Like more options than just a check box, like radio buttons, list etc.
-Option to select where you want to display these custom things in WooCommerce product page through hooks.
+More admin page abilities for a better control for your needs.<br>
+More options than just a check box, like radio buttons, list etc.<br>
+Option to select where you want to display these custom things in WooCommerce product page through hooks.<br>
 CSS adjustments.
 
 <b>Install:</b>
