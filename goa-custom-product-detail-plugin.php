@@ -1,14 +1,13 @@
 <?php
 /*
 Plugin Name: Custom Product Field with Images and Text
-Description: WooCommerce Custom Product Field with Images and Text
-Version: 1.0
+Description: WooCommerce ürün sayfalarına özel bir alan ekler ve her seçenek için bir resim ve metin yükler.
+Version: 1.0.1
 Author: Ali Ozgenc
 */
 
 // Ürün düzenleme sayfasına alanı eklemek için fonksiyon
-function add_custom_product_field()
-{
+function add_custom_product_field() {
     global $woocommerce, $post;
 
     // Sadece ürün sayfasında göster
@@ -18,16 +17,16 @@ function add_custom_product_field()
         // Önceden belirlenmiş seçenekler, resim URL'leri ve metinler
         $options = array(
             'Seçenek 1' => array(
-                'image' => 'YOUR_IMAGE_HERE',
-                'text'  => 'YOUR_TEXT_HERE',
+                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'text'  => 'Wall',
             ),
             'Seçenek 2' => array(
-                'image' => 'YOUR_IMAGE_HERE',
-                'text'  => 'YOUR_TEXT_HEREn',
+                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'text'  => 'Kitchen',
             ),
             'Seçenek 3' => array(
-                'image' => 'YOUR_IMAGE_HERE',
-                'text'  => 'YOUR_TEXT_HERE',
+                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'text'  => 'Floor',
             ),
         );
 
@@ -50,8 +49,7 @@ function add_custom_product_field()
 add_action('woocommerce_product_options_general_product_data', 'add_custom_product_field');
 
 // Kullanıcının seçtiği değeri kaydetmek için fonksiyon
-function save_custom_product_field($post_id)
-{
+function save_custom_product_field($post_id) {
     // Sadece ürünler için kaydet
     if (get_post_type($post_id) === 'product') {
         // Önceden belirlenmiş seçenekler
@@ -84,3 +82,41 @@ function save_custom_product_field($post_id)
 
 // Ürün kaydedilirken ekstra alan değerini kaydetmek için kancayı tanımla
 add_action('save_post', 'save_custom_product_field');
+
+// Ürün sayfasında ön yüzde alanı göstermek için fonksiyon
+function display_custom_product_field() {
+    global $product;
+
+    echo '<div class="custom-product-field">';
+    
+
+    // Önceden belirlenmiş seçenekler, resim URL'leri ve metinler
+    $options = array(
+        'Seçenek 1' => array(
+            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'text'  => 'Wall',
+        ),
+        'Seçenek 2' => array(
+            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'text'  => 'Kitchen',
+        ),
+        'Seçenek 3' => array(
+            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'text'  => 'Floor',
+        ),
+    );
+
+    foreach ($options as $option => $data) {
+        // Seçenek seçiliyse göster
+        if (get_post_meta($product->get_id(), '_custom_field_' . sanitize_title($option), true) === 'yes') {
+            
+            echo '<p><img src="' . esc_url($data['image']) . '" alt="' . esc_attr($option) . '" style="max-width: 80px; max-height: 80px;"></p>';
+            echo '<p>' . esc_html($data['text']) . '</p>';
+        }
+    }
+
+    echo '</div>';
+}
+
+// Ürün sayfasına ekstra alanı eklemek için kancayı tanımla (ön yüzde)
+add_action('woocommerce_before_add_to_cart_form', 'display_custom_product_field');
