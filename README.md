@@ -16,6 +16,7 @@ CSS adjustments.
 <b>Install:</b>
 
 Simply put in /plugins directory and unzip.
+If you want to change images and texts or add new ones you need to put it in the array manually for now.
 Requires WooCommerce.
 
 If you have other suggestions please let me know.
