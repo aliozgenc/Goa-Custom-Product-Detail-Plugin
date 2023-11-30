@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Product Field with Images and Text
 Description: WooCommerce ürün sayfalarına özel bir alan ekler ve her seçenek için bir resim ve metin yükler.
-Version: 1.0.1
+Version: 1.0.2
 Author: Ali Ozgenc
 */
 
@@ -17,15 +17,15 @@ function add_custom_product_field() {
         // Önceden belirlenmiş seçenekler, resim URL'leri ve metinler
         $options = array(
             'Seçenek 1' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Wall',
             ),
             'Seçenek 2' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Kitchen',
             ),
             'Seçenek 3' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Floor',
             ),
         );
@@ -55,15 +55,15 @@ function save_custom_product_field($post_id) {
         // Önceden belirlenmiş seçenekler
         $options = array(
             'Seçenek 1' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Wall',
             ),
             'Seçenek 2' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Kitchen',
             ),
             'Seçenek 3' => array(
-                'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+                'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
                 'text'  => 'Floor',
             ),
         );
@@ -88,20 +88,19 @@ function display_custom_product_field() {
     global $product;
 
     echo '<div class="custom-product-field">';
-    
 
     // Önceden belirlenmiş seçenekler, resim URL'leri ve metinler
     $options = array(
         'Seçenek 1' => array(
-            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
             'text'  => 'Wall',
         ),
         'Seçenek 2' => array(
-            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
             'text'  => 'Kitchen',
         ),
         'Seçenek 3' => array(
-            'image' => 'https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png',
+            'image' => esc_url('https://countryclassic.co.uk/wp-content/uploads/2023/11/Adsiz_tasarim__34_-removebg-preview.png'),
             'text'  => 'Floor',
         ),
     );
@@ -109,7 +108,6 @@ function display_custom_product_field() {
     foreach ($options as $option => $data) {
         // Seçenek seçiliyse göster
         if (get_post_meta($product->get_id(), '_custom_field_' . sanitize_title($option), true) === 'yes') {
-            
             echo '<p><img src="' . esc_url($data['image']) . '" alt="' . esc_attr($option) . '" style="max-width: 80px; max-height: 80px;"></p>';
             echo '<p>' . esc_html($data['text']) . '</p>';
         }
@@ -120,3 +118,4 @@ function display_custom_product_field() {
 
 // Ürün sayfasına ekstra alanı eklemek için kancayı tanımla (ön yüzde)
 add_action('woocommerce_before_add_to_cart_form', 'display_custom_product_field');
+?>
